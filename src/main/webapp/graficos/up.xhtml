@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+
+	<h:form id="frm" enctype="multipart/form-data">
+		<h:outputText value="SELECCIONAR ARCHIVO" />
+		<p:fileUpload
+			fileUploadListener="#{archivo.handleFileUpload}"
+			mode="advanced"
+			messageTemplate="SELECCIONE UN TIPO DE ARCHIVO CORRECTO"
+			update=":frm" auto="true" sizeLimit="10000000"
+			allowTypes="/(\.|\/)(xlsx|doc|docx|jpg|png|pdf)$/" />
+		<p:growl id="messages" showDetail="true" />
+	</h:form>
+
+</body>
+</html>

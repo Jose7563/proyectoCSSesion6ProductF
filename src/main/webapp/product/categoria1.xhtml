@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+
+	<ui:composition template="/WEB-INF/templates/master.xhtml">
+		<ui:define name="content">
+			<h:form id="frm">
+
+
+				<p:dataGrid var="pro" value="#{productController.products}"
+					columns="2" rows="3" paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="6,12,16">
+					<p:column>
+						<p:panel header="#{pro.name}">
+							<h:panelGrid columns="1">
+								<h:graphicImage url="/resources/images/icon_pdf.png" />
+								<!-- 								 <p:graphicImage name="/resources/images/#{car.brand}.gif"/>  llamanada dinaca-->
+								<h:outputText value="#{pro.unitPrice}"></h:outputText>
+								<h:commandButton action="#" value="Go somewhere" styleClass="btn btn-primary" />
+
+							</h:panelGrid>
+						</p:panel>
+					</p:column>
+
+				</p:dataGrid>
+
+
+
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+</body>
+</html>

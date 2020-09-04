@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>JSF Internationalization</title>
+	<f:view locale="#{inter.language}" />
+	<!-- 	<f:loadBundle basename="messages" var="translations" /> -->
+</h:head>
+<body>
+
+	<ui:composition template="/WEB-INF/templates/master.xhtml">
+		<ui:define name="content">
+			<h:form id="frm">
+				<p:growl id="men" />
+
+				<p:toolbar>
+					<f:facet name="right">
+						<p:commandButton value="#{translations['toolbar.nuevo']}"
+							icon="ui-icon-disk" action="#{productController.newProduct()}"
+							ajax="false" />
+
+						<p:commandButton value="#{translations['toolbar.editar']}"
+							icon="ui-icon-disk" action="#{productController.editProduct()}"
+							ajax="false" />
+
+
+
+					</f:facet>
+				</p:toolbar>
+				<h:outputLabel id="langLabel" for="lang">#{translations.Your_Language}</h:outputLabel>
+				<h:selectOneMenu id="lang" value="#{inter.language}">
+					<f:selectItems value="#{inter.possibleLanguages}"
+						var="thisLanguage" itemValue="#{thisLanguage}"
+						itemLabel="#{translations['Language.'.concat(thisLanguage)]}" />
+					<f:ajax render="langLabel lang nameLabel submitButton" />
+					<!-- perform AJAX call when this field changes,
+                        send values of fields with ids listed in "execute",
+                        on response update fields with ids listed in "render"  -->
+				</h:selectOneMenu>
+
+
+				<p:panelGrid id="panGriBuscador" columns="3" style="width:100%">
+					<p:outputLabel value="Buscar Por Nombre:" for="txtSearchName" />
+					<p:inputText id="txtSearchName"
+						value="#{productController.filterName}" />
+					<p:commandButton icon="ui-icon-search"
+						actionListener="#{productController.searchProductByName()}"
+						update=":frm:datTabProducts :frm:men" />
+
+
+
+				</p:panelGrid>
+
+				<h:commandLink>
+					<h:graphicImage url="/resources/images/icon_pdf.png" />
+					<p:dataExporter type="pdf" target="datTabProducts"
+						fileName="products" />
+				</h:commandLink>
+				<p:dataTable id="datTabProducts"
+					emptyMessage="No existen productos registrados"
+					value="#{productController.products}" var="product"
+					rowKey="#{product.id}" selectionMode="single"
+					selection="#{productController.productSelect}" paginator="true"
+					rows="10">
+
+
+					<p:ajax event="rowSelect"
+						listener="#{productController.selectProduct}" />
+
+
+					<p:column headerText="Id">
+						<p:outputLabel value="#{product.id}" />
+					</p:column>
+					<p:column headerText="Producto">
+						<p:outputLabel value="#{product.name}" />
+					</p:column>
+					<p:column headerText="Proveedor">
+						<p:outputLabel value="#{product.supplier.name}" />
+					</p:column>
+					<p:column headerText="Categoria">
+						<p:outputLabel value="#{product.category}" />
+					</p:column>
+					<!-- 					<p:column headerText="Imagen"> -->
+					<!-- 						<p:outputLabel value="#{product.image}" /> -->
+					<!-- 					</p:column> -->
+
+				</p:dataTable>
+
+
+
+
+
+
+
+			</h:form>
+
+
+
+
+
+			<h:form>
+
+				<p:dataGrid var="pro" value="#{productController.products}"
+					columns="2" rows="3" paginator="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="6,12,16">
+					<p:column>
+						<p:panel header="#{pro.name}">
+							<h:panelGrid columns="1">
+								<h:graphicImage url="/resources/images/st.jpg" />
+								<!-- 								 <p:graphicImage name="/resources/images/#{car.brand}.gif"/>  llamanada dinaca-->
+								<h:outputText value="#{pro.unitPrice}"></h:outputText>
+								<p class="text-justify mt-2">Lorem Ipsum is simply dummy
+									text of the printing and typesetting industry. Lorem Ipsum has
+									been the industry's standard dummy text ever since the 1500s,
+									when an unknown printer took a galley of type and scrambled it
+									to make a type specimen book. It has survived not only five
+									centuries, but also the leap into electronic typesetting,
+									remaining essentially unchanged. It was popularised in the
+									1960s with the release of Letraset sheets containing Lorem
+									Ipsum passages, and more recently with desktop publishing
+									software like Aldus PageMaker including versions of Lorem Ipsum
+								</p>
+								<h:commandButton action="#" value="Go somewhere"
+									styleClass="btn btn-primary" />
+
+							</h:panelGrid>
+						</p:panel>
+					</p:column>
+
+				</p:dataGrid>
+
+			</h:form>
+
+
+			<div class="container ">
+				<div class="row">
+					<ui:repeat var="item" varStatus="status"
+						value="#{productController.products}">
+
+
+
+						<div class="card col-4" style="width: 18rem;">
+							<!-- 							<img src="..."> -->
+							<h:graphicImage class="card-img-top" alt="..."
+								url="/resources/images/icon_pdf.png" />
+							<div class="card-body">
+								<h5 class="card-title">#{item.name}</h5>
+								<p class="card-text">Some quick example text to build on the
+									card title and make up the bulk of the card's content.</p>
+								<a href="#" class="btn btn-primary">Go somewhere</a>
+							</div>
+						</div>
+					</ui:repeat>
+				</div>
+			</div>
+
+
+
+
+
+
+
+
+		</ui:define>
+	</ui:composition>
+
+</body>
+</html>

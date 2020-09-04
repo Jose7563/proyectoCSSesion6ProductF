@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head></h:head>
+<h:body>
+	<h:form>
+		<p:panel header="Formulario">
+			<h:form>
+				<p:panelGrid columns="3">
+
+					<p:outputLabel value="Usuario:" for="txtNombre"></p:outputLabel>
+					<p:inputText id="txtNombre" value="#{loginController.login.userName}" required="true" maxlength="10"></p:inputText>
+					<h:message for="txtNombre"></h:message>
+					<p:outputLabel value="Contraseña:" for="txtClave"></p:outputLabel>
+					
+					<p:inputText id="txtClave" required="true" maxlength="10"></p:inputText>
+					<p:commandButton value="Ingresar ">
+					</p:commandButton>
+				</p:panelGrid>
+			</h:form>
+
+		</p:panel>
+	</h:form>
+	
+	
+	 <p:textEditor />
+	 Calendar:
+	 <p:calendar value="#{dateController.date1}" pattern="dd/MM/yyyy"/>
+
+
+
+</h:body>
+</html>
